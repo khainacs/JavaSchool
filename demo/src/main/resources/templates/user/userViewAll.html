@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{user/userNav.html}"
+      xmlns:th="http://www.thymeleaf.org"
+      lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>View All User</title>
+</head>
+<body>
+    <div layout:fragment="user-content">
+        <div class="user-view h-100 w-100 px-4 py-3">
+            <div class="profile-header-title w-100">
+                <h5>View All User</h5>
+            </div>
+            <div th:if="${successMessage}">
+                <div class="alert alert-success" th:text="${successMessage}"></div>
+            </div>
+            <div th:if="${errorMessage}">
+                <div class="alert alert-danger" th:text="${errorMessage}"></div>
+            </div>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th class="text-center" scope="col">ID</th>
+                        <th class="text-center" scope="col">First Name</th>
+                        <th class="text-center" scope="col">Last Name</th>
+                        <th class="text-center" scope="col">Role</th>
+                        <th class="text-center" scope="col">Email</th>
+                        <th class="text-center" scope="col">Action</th>
+                    </tr>
+                </thead>
+                <tbody th:each="userDto : ${userDtoList}">
+                    <tr>
+                        <td class="text-center" th:text="${userDto.id}"></td>
+                        <td class="text-center" th:text="${userDto.firstName}"></td>
+                        <td class="text-center" th:text="${userDto.lastName}"></td>
+                        <td class="text-center text-info fw-bold" th:text="${userDto.role}"></td>
+                        <td class="text-center" th:text="${userDto.email}"></td>
+                        <td class="d-flex justify-content-center gap-1 ">
+                            <a class="btn btn-primary btn-small d-flex justify-content-center align-items-center"
+                               role="button"
+                               th:href="@{/khainacs/user/update(uuid=${userDto.id})}"
+                            ><i class="fa-regular fa-eye"></i></a>
+                            <form th:action="@{/khainacs/user/delete}" method="post">
+                                <input type="hidden" name="uuid" th:value="${userDto.uuid}" />
+                                <button type="submit" class="btn btn-danger btn-small d-flex justify-content-center align-items-center">
+                                    <i class="fa-solid fa-trash"></i>
+                                </button>
+                            </form>
+
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+
+        </div>
+    </div>
+
+</body>
+</html>

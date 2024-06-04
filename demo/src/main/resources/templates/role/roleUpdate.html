@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:th="http://www.thymeleaf.org"
+      layout:decorate="~{layout.html}">
+<head>
+    <meta charset="UTF-8">
+    <title>User</title>
+</head>
+<body>
+<div layout:fragment="content">
+        <div class="dashboard-page w-100 h-100 p-2">
+            <div class="user-edit-header w-100 px-4 py-3">
+                <h5>Edit User</h5>
+            </div>
+
+            <form method="post"
+                  action="role/update/submit"
+                  th:object="${userDTO}"
+                  enctype="multipart/form-data"
+                  class="user-edit-form h-100 w-100 d-flex px-4 py-5">
+                <div class="user-info col-8">
+
+                    <div class="w-75">
+                        <div class="user-update-item d-flex justify-content-start align-items-start gap-4">
+                            <div class="user-update-label">
+                                <label>Role Name</label>
+                            </div>
+                            <div class="w-75">
+                                <input class="user-update-input"
+                                       type="text"
+                                       placeholder="First Name"
+                                       th:field="${userDTO.roleName}"
+                                >
+                                <p th:if="${#fields.hasErrors('roleName')}"
+                                   th:errorclass="text-danger"
+                                   th:errors="${userDTO.roleName}"
+                                ></p>
+                            </div>
+                        </div>
+
+                    </div>
+
+
+                    <div class="w-75 d-flex justify-content-end gap-2">
+                        <button type="submit" name="action" value="cancel" class="btn btn-outline-secondary">Cancel</button>
+                        <button type="submit" name="action" value="create" class="btn btn-primary">Submit</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+</div>
+</body>
+</html>

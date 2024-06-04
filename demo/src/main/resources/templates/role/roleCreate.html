@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{user/userNav.html}"
+      xmlns:th="http://www.thymeleaf.org"
+      lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create Role</title>
+</head>
+<body>
+    <div layout:fragment="user-content">
+        <div class="user-view w-100 px-4 py-3">
+            <div class="user-header-title w-100">
+                <h5>Create Role</h5>
+            </div>
+            <div th:if="${errorMessage}">
+                <div class="alert alert-danger" th:text="${errorMessage}"></div>
+            </div>
+            <form action="/khainacs/role/create/submit"
+                  method="post"
+                  th:object="${roleDTO}"
+                  class="p-5">
+                <div class="w-100 d-flex justify-content-start px-5">
+                    <div class="user-item">
+                        <div class="mb-2">
+                            <label>Role Name</label>
+                        </div>
+                        <div>
+                            <input class="user-input"
+                                   type="text"
+                                   placeholder="First Name"
+                                   th:field="${roleDTO.roleName}"
+                            >
+                            <p th:if="${#fields.hasErrors('roleName')}"
+                               th:errorclass="text-danger"
+                               th:errors="${userDTO.roleName}"
+                            ></p>
+                        </div>
+                    </div>
+
+
+                </div>
+
+                <div class="user-submit-layout d-flex justify-content-end align-items-end gap-2 px-5">
+                    <button type="submit" name="action" value="cancel" class="btn btn-outline-secondary">Cancel</button>
+                    <button type="submit" name="action" value="create" class="btn btn-primary">Submit</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</body>
+</html>
